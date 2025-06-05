@@ -3,16 +3,20 @@ var builder = DistributedApplication.CreateBuilder(args);
 var username = builder.AddParameter("pg-username", "l0c@l-D3v-user");
 var password = builder.AddParameter("pg-pass", "l0c@l-D3v-pass");
 
+var kafka = builder.AddKafka("kafka").WithKafkaUI();
+
 var pgsql = builder.AddPostgres("pgsql", username, password);
 
 var writeDb = pgsql.AddDatabase("write-db");
 var readDb = pgsql.AddDatabase("read-db");
 
 var writeService = builder.AddProject<Projects.CharlotteComedy>("command-api")
-    .WithReference(writeDb);
+    .WithReference(writeDb)
+    .WithReference(kafka);
 
 var readService = builder.AddProject<Projects.CharlotteComedy_Query>("query-api")
-    .WithReference(readDb);
+    .WithReference(readDb)
+    .WithReference(kafka);
 
 var gateway = builder.AddProject<Projects.CharlotteComedy_Gateway>("api-gateway")
     .WithReference(writeService)
