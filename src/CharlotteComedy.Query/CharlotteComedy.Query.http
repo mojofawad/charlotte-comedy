@@ -1,0 +1,6 @@
+@CharlotteComedy.Query_HostAddress = http://localhost:5154
+
+GET {{CharlotteComedy.Query_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

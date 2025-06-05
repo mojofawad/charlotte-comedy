@@ -1,0 +1,6 @@
+@CharlotteComedy.Gateway_HostAddress = http://localhost:5065
+
+GET {{CharlotteComedy.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
